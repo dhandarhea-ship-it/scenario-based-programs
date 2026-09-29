@@ -1,0 +1,29 @@
+import csv
+import re
+
+# Read book records from books.csv
+with open("books.csv", "r") as file:
+    books = list(csv.DictReader(file))
+
+# Display all book details
+print("All Book Details:")
+for book in books:
+    print(book)
+
+# Get keyword from user
+keyword = input("Enter title keyword: ")
+
+# Regular expression: title starts with the entered keyword
+pattern = re.compile(r"^" + re.escape(keyword), re.IGNORECASE)
+
+# Search and display matching records
+print("\nMatching Books:")
+found = False
+
+for book in books:
+    if pattern.search(book["Title"]):
+        print(book)
+        found = True
+
+if not found:
+    print("No matching books found.")
